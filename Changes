@@ -1,0 +1,6 @@
+Revision history for Perl extension PCL::Simple.
+
+1.00  Tue Apr 16 11:13:12 2002
+	- original version; created by h2xs 1.21 with options
+		-AX -n PCL::Simple
+
