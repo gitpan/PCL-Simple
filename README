@@ -1,4 +1,4 @@
-PCL/Simple version 1.00
+PCL/Simple version 1.01
 =======================
 
 NAME
@@ -53,6 +53,11 @@ USAGE
     "-ms"
       Media Size defaults to letter. Valid values are: executive, letter,
       legal, ledger, a4, a3, monarch, com-10, d1, c5, b5
+
+    "-msrc"
+      Media Source is not set by default.  Valid values are:
+      numbers from 0 to 69.  Generally refers to paper trays or
+      feeders.  See your printer documentation for details.
 
     "-o"
       Orientation defaults to portrait. Valid values are: landscape,

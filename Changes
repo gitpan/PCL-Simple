@@ -4,3 +4,7 @@ Revision history for Perl extension PCL::Simple.
 	- original version; created by h2xs 1.21 with options
 		-AX -n PCL::Simple
 
+1.01  Tue Aug 20 09:36:21 2002
+        - added -msrc flag for controlling media source (paper
+          tray) via PCL 
+

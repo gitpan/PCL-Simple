@@ -46,6 +46,10 @@ Lines Per Page (Required)
 
 Media Size defaults to letter.  Valid values are: executive, letter, legal, ledger, a4, a3, monarch, com-10, d1, c5, b5
 
+=item C<-msrc>
+
+Media Source is not set by default.  Valid values are: numbers from 0 to 69.  Generally refers to paper trays or feeders.  See your printer documentation for details.
+
 =item C<-o>
 
 Orientation defaults to portrait.  Valid values are: landscape, portrait.
@@ -66,7 +70,7 @@ use base Exporter;
 
 use vars qw/ @EXPORT_OK $VERSION /;
 @EXPORT_OK = qw/ PCL_pre PCL_post /;
-$VERSION = 1.00;
+$VERSION = 1.01;
 
 # for converting millemeters to inches
 use constant MM_PER_IN => 25.4;
@@ -90,6 +94,7 @@ sub PCL_pre {
         -w      =>  qr/^\d+$/,
         -lpp    =>  qr/^\d+$/,
         -ms     =>  [qw/ executive letter legal ledger a4 a3 monarch com-10 d1 c5 b5 /],
+        -msrc   =>  [ 0..69 ],
         -o      =>  qr/^(landscape|portrait)$/i,
         -s      =>  [ 0, 1, 2 ],
         -c      =>  qr/^\d+$/,
@@ -309,17 +314,6 @@ sub PCL_pre {
                                    ? $args->{-lpp}
                                    : 0;
 
-#print <<"";
-#TEST:
-#\$page_size_code: $page_size_code
-#\$orientation_code: $orientation_code
-#\$pitch: $pitch
-#\$vmi: $vmi
-#\$num_left_margin_chars: $num_left_margin_chars
-#\$num_right_margin_position: $num_right_margin_position
-#\$num_top_margin_lines: $num_top_margin_lines
-#\$num_bottom_margin_position: $num_bottom_margin_position
-
     return
             # Universal Exit Language Command
               "\e%-123245X" .
@@ -335,6 +329,13 @@ sub PCL_pre {
 
             # Page Size Command
               "\e&l" . $page_size_code . "A" .
+
+            # Page Source Command
+              (
+                  (defined $args->{-msrc})
+                    ? "\e&l" . $args->{-msrc} . "H"
+                    : ''
+              ) .
 
             # Logical Page Orientation Command
               "\e&l" . $orientation_code . "O" .
