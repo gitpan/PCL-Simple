@@ -316,7 +316,7 @@ sub PCL_pre {
 
     return
             # Universal Exit Language Command
-              "\e%-123245X" .
+              "\e%-12345X" .
 
             # Printer Reset Command
               "\eE" .
@@ -390,7 +390,7 @@ sub PCL_post {
               "\eE" .
 
             # Universal Exit Language Command
-              "\e%-123245X";
+              "\e%-12345X";
 }
 
 1;
